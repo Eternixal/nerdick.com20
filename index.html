@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Savage Launch Station</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Orbitron untuk header -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <!-- Poppins untuk form -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #0a0a0a 0%, #101322 100%);
+        color: white;
+        text-align: center;
+        margin: 0;
+        padding: 60px 20px;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      h1 {
+        margin-bottom: 40px;
+        font-family: 'Orbitron', sans-serif;
+        background: linear-gradient(90deg, #ff003c, #00c3ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
+      }
+
+      .form-container {
+        background: rgba(15, 20, 35, 0.8);
+        padding: 24px;
+        border-radius: 12px;
+        display: inline-block;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 25px rgba(0, 195, 255, 0.3);
+        margin-bottom: 30px;
+        transition: all 0.3s ease;
+      }
+
+      .form-container:hover {
+        box-shadow: 0 0 40px rgba(255, 0, 60, 0.4);
+      }
+
+      label {
+        display: block;
+        text-align: left;
+        width: 80%;
+        max-width: 300px;
+        margin: 12px auto 4px auto;
+        font-size: 14px;
+        color: #bdbdbd;
+      }
+
+      input {
+        width: 80%;
+        max-width: 300px;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        font-size: 16px;
+        background: rgba(25, 30, 50, 0.9);
+        color: white;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      input:focus {
+        border: 1px solid #00c3ff;
+        outline: none;
+        box-shadow: 0 0 10px #00c3ff;
+      }
+
+      button {
+        width: auto;
+        padding: 12px 28px;
+        margin: 8px 0;
+        background: linear-gradient(90deg, #ff003c, #00c3ff);
+        border: none;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+      }
+
+      button:hover {
+        transform: scale(1.07);
+        box-shadow: 0 0 35px rgba(0, 195, 255, 0.5);
+      }
+
+      #savage-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(20, 25, 40, 0.95), rgba(0, 0, 0, 0.9));
+        color: white;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+      }
+
+      #savage-modal h2 {
+        font-size: 14px;
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(90deg, #ff003c, #00c3ff);
+        border-radius: 10px;
+        box-shadow: 0 0 25px rgba(0, 195, 255, 0.5);
+        animation: pulse 1.5s infinite;
+      }
+
+      #savage-modal button {
+        margin-top: 20px;
+        background: linear-gradient(90deg, #ff003c, #00c3ff);
+        box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+        padding: 8px 20px;
+        border-radius: 6px;
+        color: white;
+        border: none;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      #savage-modal button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(0, 195, 255, 0.6);
+      }
+
+      @keyframes pulse {
+        0% { box-shadow: 0 0 15px #ff003c; }
+        50% { box-shadow: 0 0 35px #00c3ff; }
+        100% { box-shadow: 0 0 15px #ff003c; }
+      }
+
+      .spinner {
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-left-color: #00c3ff;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        margin-right: 8px;
+        animation: spin 1s linear infinite;
+        vertical-align: middle;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .google-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 20px;
+        background: #ffffff;
+        color: #111;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      .google-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      }
+
+      .google-icon {
+        width: 18px;
+        margin-right: 10px;
+      }
+
+      .divider {
+        margin: 15px 0;
+        color: #c5c5c5;
+        font-size: 14px;
+      }
+
+      @media (max-width: 500px) {
+        button { font-size: 13px; padding: 10px 22px; }
+        input { font-size: 14px; }
+      }
+    </style>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBjVfygi6OpMO9mg_SfVFpaB_MH45pOIfs",
+        authDomain: "nerdix-web.firebaseapp.com",
+        projectId: "nerdix-web",
+        storageBucket: "nerdix-web.appspot.com",
+        messagingSenderId: "442990754764",
+        appId: "1:442990754764:web:cdc5f1fe88716711fc7b69",
+        measurementId: "G-S6JSQ7FVMT"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      function showModal(message) {
+        document.getElementById("modal-message").innerText = message;
+        const modal = document.getElementById("savage-modal");
+        modal.style.display = "flex";
+      }
+
+      window.closeModal = function() {
+        document.getElementById("savage-modal").style.display = "none";
+      };
+
+      // ===== SIGN IN =====
+      let signInAttempts = 0;
+      const MAX_ATTEMPTS = 3;
+      let lockoutTime = 0;
+
+      window.signIn = () => {
+        const now = Date.now();
+        if (lockoutTime > now) {
+          const remaining = Math.ceil((lockoutTime - now)/60000);
+          showModal(`⚠️ Kamu terkunci karena gagal terlalu banyak kali. Coba lagi dalam ${remaining} menit.`);
+          return;
+        }
+
+        const btn = document.querySelector(".form-container button");
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Launching...';
+
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("password").value;
+
+        signInWithEmailAndPassword(auth, email, pass)
+          .then(() => {
+            btn.disabled = false;
+            btn.innerHTML = 'Launch Mission!';
+            signInAttempts = 0;
+            lockoutTime = 0;
+
+            showModal("🚀 Mission launched successfully!");
+            setTimeout(() => {
+              window.location.href = "https://foolish-clarity-358763.framer.app/";
+            }, 1500);
+          })
+          .catch(e => {
+            signInAttempts++;
+            btn.disabled = false;
+            btn.innerHTML = 'Launch Mission!';
+            if (signInAttempts >= MAX_ATTEMPTS) {
+              lockoutTime = Date.now() + 30*60*1000;
+              showModal("⚠️ Gagal terlalu banyak kali. Login terkunci 30 menit!");
+            } else {
+              showModal(`Launch failed: ${e.message} (Percobaan ${signInAttempts}/${MAX_ATTEMPTS})`);
+            }
+          });
+      };
+
+      // ===== SIGN UP GOOGLE =====
+      let signUpAttempts = 0;
+      const MAX_SIGNUP_ATTEMPTS = 3;
+      let signUpLockout = 0;
+
+      window.signUpWithGoogle = () => {
+        const now = Date.now();
+        if (signUpLockout > now) {
+          const remaining = Math.ceil((signUpLockout - now)/60000);
+          alert(`⚠️ Kamu terkunci karena gagal terlalu banyak kali. Coba lagi dalam ${remaining} menit.`);
+          return;
+        }
+
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            signUpAttempts = 0;
+            signUpLockout = 0;
+            showModal(`🚀 Welcome aboard, ${result.user.displayName}!`);
+            setTimeout(() => {
+              window.location.href = "https://foolish-clarity-358763.framer.app/";
+            }, 1500);
+          })
+          .catch((error) => {
+            signUpAttempts++;
+            if (signUpAttempts >= MAX_SIGNUP_ATTEMPTS) {
+              signUpLockout = Date.now() + 30*60*1000;
+              alert("⚠️ Gagal terlalu banyak kali. Sign-up terkunci 30 menit!");
+            } else {
+              alert("Sign up failed: " + error.message + ` (Percobaan ${signUpAttempts}/${MAX_SIGNUP_ATTEMPTS})`);
+            }
+          });
+      };
+    </script>
+  </head>
+
+  <body>
+    <h1>Launch Station</h1>
+
+    <div class="form-container">
+      <label for="email">Email:</label>
+      <input id="email" type="email" placeholder="your@email.com" /><br>
+        
+      <label for="password">Password:</label>
+      <input id="password" type="password" placeholder="your password" /><br>
+        
+      <button onclick="signIn()">Launch Mission!</button>
+      
+      <div class="divider">atau</div>
+      
+      <button class="google-btn" onclick="signUpWithGoogle()">
+        <img class="google-icon" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google icon" />
+        Sign Up with Google
+      </button>
+    </div>
+
+    <div id="savage-modal">
+      <h2 id="modal-message"></h2>
+      <button onclick="closeModal()">End Mission!</button>
+    </div>
+  </body>
+</html>
